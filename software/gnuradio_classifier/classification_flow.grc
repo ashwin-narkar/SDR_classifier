@@ -1,0 +1,341 @@
+options:
+  parameters:
+    author: ''
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: classification_flow
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: Not titled yet
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '32000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 12]
+    rotation: 0
+    state: enabled
+- name: blocks_complex_to_float_0
+  id: blocks_complex_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '128'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [752, 400.0]
+    rotation: 0
+    state: enabled
+- name: blocks_interleave_0
+  id: blocks_interleave
+  parameters:
+    affinity: ''
+    alias: ''
+    blocksize: '1'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_streams: '2'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1160, 544.0]
+    rotation: 180
+    state: enabled
+- name: blocks_null_sink_0
+  id: blocks_null_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    bus_structure_sink: '[[0,],]'
+    comment: ''
+    num_inputs: '1'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1448, 320.0]
+    rotation: 0
+    state: true
+- name: blocks_null_sink_2
+  id: blocks_null_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    bus_structure_sink: '[[0,],]'
+    comment: ''
+    num_inputs: '1'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1448, 384.0]
+    rotation: 0
+    state: true
+- name: blocks_stream_to_vector_0
+  id: blocks_stream_to_vector
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: '256'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [968, 560.0]
+    rotation: 180
+    state: enabled
+- name: blocks_stream_to_vector_1
+  id: blocks_stream_to_vector
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: '128'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [464, 320.0]
+    rotation: 180
+    state: enabled
+- name: blocks_vector_to_stream_1
+  id: blocks_vector_to_stream
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: '128'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1232, 320.0]
+    rotation: 0
+    state: enabled
+- name: blocks_vector_to_stream_1_0
+  id: blocks_vector_to_stream
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: '128'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1232, 384.0]
+    rotation: 0
+    state: enabled
+- name: dnn_dnn_onnx_sync_0
+  id: dnn_dnn_onnx_sync
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    input_size: '256'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    onnx_batch_size: '1'
+    onnx_model_file: /home/ashwin/Documents/Capstone/data/fft_model.onnx
+    onnx_runtime_device: GPU
+    output_size: '15'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [720, 524.0]
+    rotation: 180
+    state: enabled
+- name: epy_block_0
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\n\n\nclass blk(gr.sync_block):  # other base classes\
+      \ are basic_block, decim_block, interp_block\n    \"\"\"Embedded Python Block\
+      \ example - a simple multiply const\"\"\"\n\n    def __init__(self, vlen=128):\
+      \  # only default arguments here\n        \"\"\"arguments to this function show\
+      \ up as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n         \
+      \   self,\n            name='Normalizer',   # will show up in GRC\n        \
+      \    in_sig=[(np.float32,vlen)],\n            out_sig=[(np.float32,vlen)]\n\
+      \        )\n        # if an attribute with the same name as a parameter is found,\n\
+      \        # a callback is registered (properties work, too).\n        self.vlen\
+      \ = vlen\n\n    def work(self, input_items, output_items):\n        inp = np.asarray(input_items[0])\n\
+      \        \n        # print(len(input_items[0]))\n        # print(len(input_items[0][0]))\n\
+      \        # print(inp.shape)\n            # self.firstrun = False\n        mean\
+      \ = np.mean(inp)\n        std_dev = np.std(inp)\n\n        output_items[0][:]\
+      \ = input_items[0] - mean\n        output_items[0][:] = output_items[0] / std_dev\n\
+      \        return len(output_items[0])\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '128'
+  states:
+    _io_cache: ('Normalizer', 'blk', [('vlen', '128')], [('0', 'float', 128)], [('0',
+      'float', 128)], 'Embedded Python Block example - a simple multiply const', ['vlen'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1056, 316.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_0_0
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\n\n\nclass blk(gr.sync_block):  # other base classes\
+      \ are basic_block, decim_block, interp_block\n    \"\"\"Embedded Python Block\
+      \ example - a simple multiply const\"\"\"\n\n    def __init__(self, vlen=128):\
+      \  # only default arguments here\n        \"\"\"arguments to this function show\
+      \ up as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n         \
+      \   self,\n            name='Normalizer',   # will show up in GRC\n        \
+      \    in_sig=[(np.float32,vlen)],\n            out_sig=[(np.float32,vlen)]\n\
+      \        )\n        # if an attribute with the same name as a parameter is found,\n\
+      \        # a callback is registered (properties work, too).\n        self.firstrun\
+      \ = True\n        self.vlen = vlen\n\n    def work(self, input_items, output_items):\n\
+      \        inp = np.asarray(input_items[0])\n        \n        # print(len(input_items[0]))\n\
+      \        # print(len(input_items[0][0]))\n        # print(inp.shape)\n     \
+      \       # self.firstrun = False\n        mean = np.mean(inp)\n        std_dev\
+      \ = np.std(inp)\n\n        output_items[0][:] = input_items[0] - mean\n    \
+      \    output_items[0][:] = output_items[0] / std_dev\n        return len(output_items[0])\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '128'
+  states:
+    _io_cache: ('Normalizer', 'blk', [('vlen', '128')], [('0', 'float', 128)], [('0',
+      'float', 128)], 'Embedded Python Block example - a simple multiply const', ['vlen'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1056, 372.0]
+    rotation: 0
+    state: enabled
+- name: fft_vxx_0
+  id: fft_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    fft_size: '128'
+    forward: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nthreads: '1'
+    shift: 'False'
+    type: complex
+    window: window.blackmanharris(128)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [464, 372.0]
+    rotation: 0
+    state: enabled
+- name: freq_xlating_fir_filter_xxx_0
+  id: freq_xlating_fir_filter_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    center_freq: 2426.5e6
+    comment: ''
+    decim: '2'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate
+    taps: firdes.complex_band_pass(1, samp_rate, -samp_rate/(2), samp_rate/(2), 1e5)
+    type: ccc
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [408, 204.0]
+    rotation: 0
+    state: true
+
+connections:
+- [blocks_complex_to_float_0, '0', epy_block_0, '0']
+- [blocks_complex_to_float_0, '1', epy_block_0_0, '0']
+- [blocks_interleave_0, '0', blocks_stream_to_vector_0, '0']
+- [blocks_stream_to_vector_0, '0', dnn_dnn_onnx_sync_0, '0']
+- [blocks_stream_to_vector_1, '0', fft_vxx_0, '0']
+- [blocks_vector_to_stream_1, '0', blocks_interleave_0, '0']
+- [blocks_vector_to_stream_1, '0', blocks_null_sink_0, '0']
+- [blocks_vector_to_stream_1_0, '0', blocks_interleave_0, '1']
+- [blocks_vector_to_stream_1_0, '0', blocks_null_sink_2, '0']
+- [epy_block_0, '0', blocks_vector_to_stream_1, '0']
+- [epy_block_0_0, '0', blocks_vector_to_stream_1_0, '0']
+- [fft_vxx_0, '0', blocks_complex_to_float_0, '0']
+- [freq_xlating_fir_filter_xxx_0, '0', blocks_stream_to_vector_1, '0']
+
+metadata:
+  file_format: 1
