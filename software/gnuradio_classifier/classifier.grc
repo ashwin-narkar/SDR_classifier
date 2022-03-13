@@ -1,7 +1,6 @@
 options:
   parameters:
     author: ashwin
-    catch_exceptions: 'True'
     category: '[GRC Hier Blocks]'
     cmake_opt: ''
     comment: ''
@@ -52,7 +51,7 @@ blocks:
     gui_hint: ''
     label: ''
     min_len: '200'
-    orient: QtCore.Qt.Horizontal
+    orient: Qt.Horizontal
     rangeType: float
     start: '1'
     step: '2'
@@ -114,54 +113,8 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [448, 536.0]
+    coordinate: [560, 656.0]
     rotation: 0
-    state: disabled
-- name: blocks_complex_to_mag_squared_0
-  id: blocks_complex_to_mag_squared
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [792, 408.0]
-    rotation: 0
-    state: true
-- name: blocks_correctiq_0
-  id: blocks_correctiq
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [248, 280.0]
-    rotation: 180
-    state: true
-- name: blocks_correctiq_0_0
-  id: blocks_correctiq
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [168, 640.0]
-    rotation: 180
     state: disabled
 - name: blocks_interleave_0
   id: blocks_interleave
@@ -201,26 +154,6 @@ blocks:
     coordinate: [1104, 536.0]
     rotation: 0
     state: disabled
-- name: blocks_moving_average_xx_0
-  id: blocks_moving_average_xx
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    length: '128'
-    max_iter: '4000'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    scale: 1/128
-    type: float
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [1024, 412.0]
-    rotation: 0
-    state: true
 - name: blocks_multiply_xx_0
   id: blocks_multiply_xx
   parameters:
@@ -290,7 +223,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [568, 352.0]
+    coordinate: [736, 392.0]
     rotation: 0
     state: enabled
 - name: blocks_stream_to_vector_1_0
@@ -381,7 +314,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [880, 576.0]
+    coordinate: [928, 672.0]
     rotation: 0
     state: disabled
 - name: blocks_vector_to_stream_1_1
@@ -399,7 +332,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [880, 528.0]
+    coordinate: [944, 632.0]
     rotation: 0
     state: disabled
 - name: blocks_vector_to_stream_2_0_0_1
@@ -435,7 +368,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1336, 312.0]
+    coordinate: [1504, 216.0]
     rotation: 0
     state: enabled
 - name: blocks_vector_to_stream_2_0_0_1_1
@@ -604,7 +537,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [704, 572.0]
+    coordinate: [752, 644.0]
     rotation: 0
     state: disabled
 - name: epy_block_0_1
@@ -641,7 +574,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [704, 524.0]
+    coordinate: [744, 572.0]
     rotation: 0
     state: disabled
 - name: epy_block_2
@@ -724,7 +657,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [440, 628.0]
+    coordinate: [512, 772.0]
     rotation: 180
     state: disabled
 - name: freq_xlating_fir_filter_xxx_0
@@ -744,7 +677,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [248, 324.0]
+    coordinate: [384, 364.0]
     rotation: 0
     state: true
 - name: freq_xlating_fir_filter_xxx_0_0
@@ -767,96 +700,84 @@ blocks:
     coordinate: [160, 724.0]
     rotation: 0
     state: disabled
-- name: qtgui_number_sink_0
-  id: qtgui_number_sink
+- name: qtgui_freq_sink_x_0
+  id: qtgui_freq_sink_x
   parameters:
     affinity: ''
     alias: ''
-    autoscale: 'True'
-    avg: '0'
-    color1: ("black", "black")
-    color10: ("black", "black")
-    color2: ("black", "black")
-    color3: ("black", "black")
-    color4: ("black", "black")
-    color5: ("black", "black")
-    color6: ("black", "black")
-    color7: ("black", "black")
-    color8: ("black", "black")
-    color9: ("black", "black")
-    comment: ''
-    factor1: '1'
-    factor10: '1'
-    factor2: '1'
-    factor3: '1'
-    factor4: '1'
-    factor5: '1'
-    factor6: '1'
-    factor7: '1'
-    factor8: '1'
-    factor9: '1'
-    graph_type: qtgui.NUM_GRAPH_HORIZ
-    gui_hint: ''
-    label1: ''
-    label10: ''
-    label2: ''
-    label3: ''
-    label4: ''
-    label5: ''
-    label6: ''
-    label7: ''
-    label8: ''
-    label9: ''
-    max: '1'
-    min: '-1'
-    name: '""'
-    nconnections: '1'
-    type: float
-    unit1: ''
-    unit10: ''
-    unit2: ''
-    unit3: ''
-    unit4: ''
-    unit5: ''
-    unit6: ''
-    unit7: ''
-    unit8: ''
-    unit9: ''
-    update_time: '0.10'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [1376, 412.0]
-    rotation: 0
-    state: true
-- name: qtgui_sink_x_0
-  id: qtgui_sink_x
-  parameters:
-    affinity: ''
-    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    average: '1.0'
+    axislabels: 'True'
     bw: samp_rate/2
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
     comment: ''
+    ctrlpanel: 'False'
     fc: 2.4265e9
-    fftsize: '128'
+    fftsize: '1024'
+    freqhalf: 'True'
+    grid: 'False'
     gui_hint: ''
+    label: Relative Gain
+    label1: ''
+    label10: ''''''
+    label2: ''''''
+    label3: ''''''
+    label4: ''''''
+    label5: ''''''
+    label6: ''''''
+    label7: ''''''
+    label8: ''''''
+    label9: ''''''
+    legend: 'True'
     maxoutbuf: '0'
     minoutbuf: '0'
-    name: '"Raw Input Signal"'
-    plotconst: 'True'
-    plotfreq: 'True'
-    plottime: 'True'
-    plotwaterfall: 'True'
-    rate: '10'
+    name: '""'
+    nconnections: '1'
     showports: 'False'
-    showrf: 'False'
+    tr_chan: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_tag: '""'
     type: complex
-    wintype: window.WIN_BLACKMAN_hARRIS
+    units: dB
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    wintype: firdes.WIN_BLACKMAN_hARRIS
+    ymax: '10'
+    ymin: '-140'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [784, 12.0]
+    coordinate: [72, 388.0]
     rotation: 0
     state: true
 - name: qtgui_time_raster_sink_x_0_0_0_0_1
@@ -907,12 +828,6 @@ blocks:
     samp_rate: 10e6
     type: float
     update_time: '0.10'
-    x_end_value: '15'
-    x_label: '"Class"'
-    x_start_value: '0'
-    y_end_value: '0.0'
-    y_label: '""'
-    y_start_value: '0.0'
     zmax: '1'
     zmin: '0'
   states:
@@ -970,19 +885,13 @@ blocks:
     samp_rate: 10e6
     type: float
     update_time: '0.10'
-    x_end_value: '15'
-    x_label: '"Class"'
-    x_start_value: '0'
-    y_end_value: '0.0'
-    y_label: '""'
-    y_start_value: '0.0'
     zmax: '1'
     zmin: '0'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1744, 268.0]
+    coordinate: [1872, 284.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_raster_sink_x_0_0_0_0_1_1
@@ -1033,12 +942,6 @@ blocks:
     samp_rate: 10e6
     type: float
     update_time: '0.10'
-    x_end_value: '15'
-    x_label: '"Class"'
-    x_start_value: '0'
-    y_end_value: '0.0'
-    y_label: '""'
-    y_start_value: '0.0'
     zmax: '1'
     zmin: '0'
   states:
@@ -1048,43 +951,116 @@ blocks:
     coordinate: [1512, 692.0]
     rotation: 0
     state: disabled
+- name: qtgui_vector_sink_f_0
+  id: qtgui_vector_sink_f
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    average: '1.0'
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: ''
+    grid: 'False'
+    gui_hint: ''
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    nconnections: '1'
+    ref_level: '0'
+    showports: 'False'
+    update_time: '0.10'
+    vlen: '15'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    x_axis_label: '"x-Axis"'
+    x_start: '0'
+    x_step: '1.0'
+    x_units: '""'
+    y_axis_label: '"y-Axis"'
+    y_units: '""'
+    ymax: '1.1'
+    ymin: '-0.1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1368, 348.0]
+    rotation: 0
+    state: true
 - name: uhd_usrp_source_0
   id: uhd_usrp_source
   parameters:
     affinity: ''
     alias: ''
-    ant0: '"TX/RX"'
-    ant1: '"RX2"'
-    ant10: '"RX2"'
-    ant11: '"RX2"'
-    ant12: '"RX2"'
-    ant13: '"RX2"'
-    ant14: '"RX2"'
-    ant15: '"RX2"'
-    ant16: '"RX2"'
-    ant17: '"RX2"'
-    ant18: '"RX2"'
-    ant19: '"RX2"'
-    ant2: '"RX2"'
-    ant20: '"RX2"'
-    ant21: '"RX2"'
-    ant22: '"RX2"'
-    ant23: '"RX2"'
-    ant24: '"RX2"'
-    ant25: '"RX2"'
-    ant26: '"RX2"'
-    ant27: '"RX2"'
-    ant28: '"RX2"'
-    ant29: '"RX2"'
-    ant3: '"RX2"'
-    ant30: '"RX2"'
-    ant31: '"RX2"'
-    ant4: '"RX2"'
-    ant5: '"RX2"'
-    ant6: '"RX2"'
-    ant7: '"RX2"'
-    ant8: '"RX2"'
-    ant9: '"RX2"'
+    ant0: TX/RX
+    ant1: RX2
+    ant10: RX2
+    ant11: RX2
+    ant12: RX2
+    ant13: RX2
+    ant14: RX2
+    ant15: RX2
+    ant16: RX2
+    ant17: RX2
+    ant18: RX2
+    ant19: RX2
+    ant2: RX2
+    ant20: RX2
+    ant21: RX2
+    ant22: RX2
+    ant23: RX2
+    ant24: RX2
+    ant25: RX2
+    ant26: RX2
+    ant27: RX2
+    ant28: RX2
+    ant29: RX2
+    ant3: RX2
+    ant30: RX2
+    ant31: RX2
+    ant4: RX2
+    ant5: RX2
+    ant6: RX2
+    ant7: RX2
+    ant8: RX2
+    ant9: RX2
     bw0: '0'
     bw1: '0'
     bw10: '0'
@@ -1117,7 +1093,7 @@ blocks:
     bw7: '0'
     bw8: '0'
     bw9: '0'
-    center_freq0: 2426.5e6
+    center_freq0: 2.4265e9
     center_freq1: '0'
     center_freq10: '0'
     center_freq11: '0'
@@ -1159,73 +1135,41 @@ blocks:
     clock_source6: ''
     clock_source7: ''
     comment: ''
-    dc_offs0: 0+0j
-    dc_offs1: 0+0j
-    dc_offs10: 0+0j
-    dc_offs11: 0+0j
-    dc_offs12: 0+0j
-    dc_offs13: 0+0j
-    dc_offs14: 0+0j
-    dc_offs15: 0+0j
-    dc_offs16: 0+0j
-    dc_offs17: 0+0j
-    dc_offs18: 0+0j
-    dc_offs19: 0+0j
-    dc_offs2: 0+0j
-    dc_offs20: 0+0j
-    dc_offs21: 0+0j
-    dc_offs22: 0+0j
-    dc_offs23: 0+0j
-    dc_offs24: 0+0j
-    dc_offs25: 0+0j
-    dc_offs26: 0+0j
-    dc_offs27: 0+0j
-    dc_offs28: 0+0j
-    dc_offs29: 0+0j
-    dc_offs3: 0+0j
-    dc_offs30: 0+0j
-    dc_offs31: 0+0j
-    dc_offs4: 0+0j
-    dc_offs5: 0+0j
-    dc_offs6: 0+0j
-    dc_offs7: 0+0j
-    dc_offs8: 0+0j
-    dc_offs9: 0+0j
-    dc_offs_enb0: default
-    dc_offs_enb1: default
-    dc_offs_enb10: default
-    dc_offs_enb11: default
-    dc_offs_enb12: default
-    dc_offs_enb13: default
-    dc_offs_enb14: default
-    dc_offs_enb15: default
-    dc_offs_enb16: default
-    dc_offs_enb17: default
-    dc_offs_enb18: default
-    dc_offs_enb19: default
-    dc_offs_enb2: default
-    dc_offs_enb20: default
-    dc_offs_enb21: default
-    dc_offs_enb22: default
-    dc_offs_enb23: default
-    dc_offs_enb24: default
-    dc_offs_enb25: default
-    dc_offs_enb26: default
-    dc_offs_enb27: default
-    dc_offs_enb28: default
-    dc_offs_enb29: default
-    dc_offs_enb3: default
-    dc_offs_enb30: default
-    dc_offs_enb31: default
-    dc_offs_enb4: default
-    dc_offs_enb5: default
-    dc_offs_enb6: default
-    dc_offs_enb7: default
-    dc_offs_enb8: default
-    dc_offs_enb9: default
-    dev_addr: '"serial=3186907"'
-    dev_args: ''
-    gain0: '0.9'
+    dc_offs_enb0: '""'
+    dc_offs_enb1: '""'
+    dc_offs_enb10: '""'
+    dc_offs_enb11: '""'
+    dc_offs_enb12: '""'
+    dc_offs_enb13: '""'
+    dc_offs_enb14: '""'
+    dc_offs_enb15: '""'
+    dc_offs_enb16: '""'
+    dc_offs_enb17: '""'
+    dc_offs_enb18: '""'
+    dc_offs_enb19: '""'
+    dc_offs_enb2: '""'
+    dc_offs_enb20: '""'
+    dc_offs_enb21: '""'
+    dc_offs_enb22: '""'
+    dc_offs_enb23: '""'
+    dc_offs_enb24: '""'
+    dc_offs_enb25: '""'
+    dc_offs_enb26: '""'
+    dc_offs_enb27: '""'
+    dc_offs_enb28: '""'
+    dc_offs_enb29: '""'
+    dc_offs_enb3: '""'
+    dc_offs_enb30: '""'
+    dc_offs_enb31: '""'
+    dc_offs_enb4: '""'
+    dc_offs_enb5: '""'
+    dc_offs_enb6: '""'
+    dc_offs_enb7: '""'
+    dc_offs_enb8: '""'
+    dc_offs_enb9: '""'
+    dev_addr: '"serial=31764D0"'
+    dev_args: '""'
+    gain0: '0.8'
     gain1: '0'
     gain10: '0'
     gain11: '0'
@@ -1257,102 +1201,38 @@ blocks:
     gain7: '0'
     gain8: '0'
     gain9: '0'
-    gain_type0: default
-    gain_type1: default
-    gain_type10: default
-    gain_type11: default
-    gain_type12: default
-    gain_type13: default
-    gain_type14: default
-    gain_type15: default
-    gain_type16: default
-    gain_type17: default
-    gain_type18: default
-    gain_type19: default
-    gain_type2: default
-    gain_type20: default
-    gain_type21: default
-    gain_type22: default
-    gain_type23: default
-    gain_type24: default
-    gain_type25: default
-    gain_type26: default
-    gain_type27: default
-    gain_type28: default
-    gain_type29: default
-    gain_type3: default
-    gain_type30: default
-    gain_type31: default
-    gain_type4: default
-    gain_type5: default
-    gain_type6: default
-    gain_type7: default
-    gain_type8: default
-    gain_type9: default
-    iq_imbal0: 0+0j
-    iq_imbal1: 0+0j
-    iq_imbal10: 0+0j
-    iq_imbal11: 0+0j
-    iq_imbal12: 0+0j
-    iq_imbal13: 0+0j
-    iq_imbal14: 0+0j
-    iq_imbal15: 0+0j
-    iq_imbal16: 0+0j
-    iq_imbal17: 0+0j
-    iq_imbal18: 0+0j
-    iq_imbal19: 0+0j
-    iq_imbal2: 0+0j
-    iq_imbal20: 0+0j
-    iq_imbal21: 0+0j
-    iq_imbal22: 0+0j
-    iq_imbal23: 0+0j
-    iq_imbal24: 0+0j
-    iq_imbal25: 0+0j
-    iq_imbal26: 0+0j
-    iq_imbal27: 0+0j
-    iq_imbal28: 0+0j
-    iq_imbal29: 0+0j
-    iq_imbal3: 0+0j
-    iq_imbal30: 0+0j
-    iq_imbal31: 0+0j
-    iq_imbal4: 0+0j
-    iq_imbal5: 0+0j
-    iq_imbal6: 0+0j
-    iq_imbal7: 0+0j
-    iq_imbal8: 0+0j
-    iq_imbal9: 0+0j
-    iq_imbal_enb0: default
-    iq_imbal_enb1: default
-    iq_imbal_enb10: default
-    iq_imbal_enb11: default
-    iq_imbal_enb12: default
-    iq_imbal_enb13: default
-    iq_imbal_enb14: default
-    iq_imbal_enb15: default
-    iq_imbal_enb16: default
-    iq_imbal_enb17: default
-    iq_imbal_enb18: default
-    iq_imbal_enb19: default
-    iq_imbal_enb2: default
-    iq_imbal_enb20: default
-    iq_imbal_enb21: default
-    iq_imbal_enb22: default
-    iq_imbal_enb23: default
-    iq_imbal_enb24: default
-    iq_imbal_enb25: default
-    iq_imbal_enb26: default
-    iq_imbal_enb27: default
-    iq_imbal_enb28: default
-    iq_imbal_enb29: default
-    iq_imbal_enb3: default
-    iq_imbal_enb30: default
-    iq_imbal_enb31: default
-    iq_imbal_enb4: default
-    iq_imbal_enb5: default
-    iq_imbal_enb6: default
-    iq_imbal_enb7: default
-    iq_imbal_enb8: default
-    iq_imbal_enb9: default
+    iq_imbal_enb0: '""'
+    iq_imbal_enb1: '""'
+    iq_imbal_enb10: '""'
+    iq_imbal_enb11: '""'
+    iq_imbal_enb12: '""'
+    iq_imbal_enb13: '""'
+    iq_imbal_enb14: '""'
+    iq_imbal_enb15: '""'
+    iq_imbal_enb16: '""'
+    iq_imbal_enb17: '""'
+    iq_imbal_enb18: '""'
+    iq_imbal_enb19: '""'
+    iq_imbal_enb2: '""'
+    iq_imbal_enb20: '""'
+    iq_imbal_enb21: '""'
+    iq_imbal_enb22: '""'
+    iq_imbal_enb23: '""'
+    iq_imbal_enb24: '""'
+    iq_imbal_enb25: '""'
+    iq_imbal_enb26: '""'
+    iq_imbal_enb27: '""'
+    iq_imbal_enb28: '""'
+    iq_imbal_enb29: '""'
+    iq_imbal_enb3: '""'
+    iq_imbal_enb30: '""'
+    iq_imbal_enb31: '""'
+    iq_imbal_enb4: '""'
+    iq_imbal_enb5: '""'
+    iq_imbal_enb6: '""'
+    iq_imbal_enb7: '""'
+    iq_imbal_enb8: '""'
+    iq_imbal_enb9: '""'
     lo_export0: 'False'
     lo_export1: 'False'
     lo_export10: 'False'
@@ -1420,6 +1300,38 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
     nchan: '1'
+    norm_gain0: 'True'
+    norm_gain1: 'False'
+    norm_gain10: 'False'
+    norm_gain11: 'False'
+    norm_gain12: 'False'
+    norm_gain13: 'False'
+    norm_gain14: 'False'
+    norm_gain15: 'False'
+    norm_gain16: 'False'
+    norm_gain17: 'False'
+    norm_gain18: 'False'
+    norm_gain19: 'False'
+    norm_gain2: 'False'
+    norm_gain20: 'False'
+    norm_gain21: 'False'
+    norm_gain22: 'False'
+    norm_gain23: 'False'
+    norm_gain24: 'False'
+    norm_gain25: 'False'
+    norm_gain26: 'False'
+    norm_gain27: 'False'
+    norm_gain28: 'False'
+    norm_gain29: 'False'
+    norm_gain3: 'False'
+    norm_gain30: 'False'
+    norm_gain31: 'False'
+    norm_gain4: 'False'
+    norm_gain5: 'False'
+    norm_gain6: 'False'
+    norm_gain7: 'False'
+    norm_gain8: 'False'
+    norm_gain9: 'False'
     num_mboards: '1'
     otw: ''
     rx_agc0: Default
@@ -1481,9 +1393,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [80, 132.0]
+    coordinate: [56, 132.0]
     rotation: 0
-    state: enabled
+    state: true
 - name: uhd_usrp_source_0_0
   id: uhd_usrp_source
   parameters:
@@ -1595,38 +1507,6 @@ blocks:
     clock_source6: ''
     clock_source7: ''
     comment: ''
-    dc_offs0: 0+0j
-    dc_offs1: 0+0j
-    dc_offs10: 0+0j
-    dc_offs11: 0+0j
-    dc_offs12: 0+0j
-    dc_offs13: 0+0j
-    dc_offs14: 0+0j
-    dc_offs15: 0+0j
-    dc_offs16: 0+0j
-    dc_offs17: 0+0j
-    dc_offs18: 0+0j
-    dc_offs19: 0+0j
-    dc_offs2: 0+0j
-    dc_offs20: 0+0j
-    dc_offs21: 0+0j
-    dc_offs22: 0+0j
-    dc_offs23: 0+0j
-    dc_offs24: 0+0j
-    dc_offs25: 0+0j
-    dc_offs26: 0+0j
-    dc_offs27: 0+0j
-    dc_offs28: 0+0j
-    dc_offs29: 0+0j
-    dc_offs3: 0+0j
-    dc_offs30: 0+0j
-    dc_offs31: 0+0j
-    dc_offs4: 0+0j
-    dc_offs5: 0+0j
-    dc_offs6: 0+0j
-    dc_offs7: 0+0j
-    dc_offs8: 0+0j
-    dc_offs9: 0+0j
     dc_offs_enb0: default
     dc_offs_enb1: default
     dc_offs_enb10: default
@@ -1693,70 +1573,6 @@ blocks:
     gain7: '0'
     gain8: '0'
     gain9: '0'
-    gain_type0: default
-    gain_type1: default
-    gain_type10: default
-    gain_type11: default
-    gain_type12: default
-    gain_type13: default
-    gain_type14: default
-    gain_type15: default
-    gain_type16: default
-    gain_type17: default
-    gain_type18: default
-    gain_type19: default
-    gain_type2: default
-    gain_type20: default
-    gain_type21: default
-    gain_type22: default
-    gain_type23: default
-    gain_type24: default
-    gain_type25: default
-    gain_type26: default
-    gain_type27: default
-    gain_type28: default
-    gain_type29: default
-    gain_type3: default
-    gain_type30: default
-    gain_type31: default
-    gain_type4: default
-    gain_type5: default
-    gain_type6: default
-    gain_type7: default
-    gain_type8: default
-    gain_type9: default
-    iq_imbal0: 0+0j
-    iq_imbal1: 0+0j
-    iq_imbal10: 0+0j
-    iq_imbal11: 0+0j
-    iq_imbal12: 0+0j
-    iq_imbal13: 0+0j
-    iq_imbal14: 0+0j
-    iq_imbal15: 0+0j
-    iq_imbal16: 0+0j
-    iq_imbal17: 0+0j
-    iq_imbal18: 0+0j
-    iq_imbal19: 0+0j
-    iq_imbal2: 0+0j
-    iq_imbal20: 0+0j
-    iq_imbal21: 0+0j
-    iq_imbal22: 0+0j
-    iq_imbal23: 0+0j
-    iq_imbal24: 0+0j
-    iq_imbal25: 0+0j
-    iq_imbal26: 0+0j
-    iq_imbal27: 0+0j
-    iq_imbal28: 0+0j
-    iq_imbal29: 0+0j
-    iq_imbal3: 0+0j
-    iq_imbal30: 0+0j
-    iq_imbal31: 0+0j
-    iq_imbal4: 0+0j
-    iq_imbal5: 0+0j
-    iq_imbal6: 0+0j
-    iq_imbal7: 0+0j
-    iq_imbal8: 0+0j
-    iq_imbal9: 0+0j
     iq_imbal_enb0: default
     iq_imbal_enb1: default
     iq_imbal_enb10: default
@@ -1856,6 +1672,38 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
     nchan: '1'
+    norm_gain0: 'False'
+    norm_gain1: 'False'
+    norm_gain10: 'False'
+    norm_gain11: 'False'
+    norm_gain12: 'False'
+    norm_gain13: 'False'
+    norm_gain14: 'False'
+    norm_gain15: 'False'
+    norm_gain16: 'False'
+    norm_gain17: 'False'
+    norm_gain18: 'False'
+    norm_gain19: 'False'
+    norm_gain2: 'False'
+    norm_gain20: 'False'
+    norm_gain21: 'False'
+    norm_gain22: 'False'
+    norm_gain23: 'False'
+    norm_gain24: 'False'
+    norm_gain25: 'False'
+    norm_gain26: 'False'
+    norm_gain27: 'False'
+    norm_gain28: 'False'
+    norm_gain29: 'False'
+    norm_gain3: 'False'
+    norm_gain30: 'False'
+    norm_gain31: 'False'
+    norm_gain4: 'False'
+    norm_gain5: 'False'
+    norm_gain6: 'False'
+    norm_gain7: 'False'
+    norm_gain8: 'False'
+    norm_gain9: 'False'
     num_mboards: '1'
     otw: ''
     rx_agc0: Default
@@ -1917,7 +1765,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [128, 468.0]
+    coordinate: [56, 556.0]
     rotation: 0
     state: disabled
 
@@ -1927,17 +1775,12 @@ connections:
 - [blocks_complex_to_float_0, '1', epy_block_0_0, '0']
 - [blocks_complex_to_float_0_0, '0', epy_block_0_1, '0']
 - [blocks_complex_to_float_0_0, '1', epy_block_0_0_0, '0']
-- [blocks_complex_to_mag_squared_0, '0', blocks_moving_average_xx_0, '0']
-- [blocks_correctiq_0, '0', freq_xlating_fir_filter_xxx_0, '0']
-- [blocks_correctiq_0_0, '0', freq_xlating_fir_filter_xxx_0_0, '0']
 - [blocks_interleave_0, '0', blocks_stream_to_vector_0, '0']
 - [blocks_interleave_0_0, '0', blocks_stream_to_vector_0_0, '0']
-- [blocks_moving_average_xx_0, '0', qtgui_number_sink_0, '0']
 - [blocks_stream_to_vector_0, '0', dnn_dnn_onnx_sync_0, '0']
 - [blocks_stream_to_vector_0_0, '0', dnn_dnn_onnx_sync_0_0, '0']
 - [blocks_stream_to_vector_1, '0', fft_vxx_0, '0']
 - [blocks_stream_to_vector_1_0, '0', fft_vxx_0_0, '0']
-- [blocks_throttle_0, '0', freq_xlating_fir_filter_xxx_0, '0']
 - [blocks_vector_to_stream_1, '0', blocks_interleave_0, '0']
 - [blocks_vector_to_stream_1_0, '0', blocks_interleave_0, '1']
 - [blocks_vector_to_stream_1_0_0, '0', blocks_interleave_0_0, '1']
@@ -1947,6 +1790,7 @@ connections:
 - [blocks_vector_to_stream_2_0_0_1_1, '0', qtgui_time_raster_sink_x_0_0_0_0_1_1, '0']
 - [dnn_dnn_onnx_sync_0, '0', blocks_vector_to_stream_2_0_0_1_0, '0']
 - [dnn_dnn_onnx_sync_0, '0', epy_block_2, '0']
+- [dnn_dnn_onnx_sync_0, '0', qtgui_vector_sink_f_0, '0']
 - [dnn_dnn_onnx_sync_0_0, '0', blocks_vector_to_stream_2_0_0_1_1, '0']
 - [dnn_dnn_onnx_sync_0_0, '0', epy_block_2, '1']
 - [epy_block_0, '0', blocks_vector_to_stream_1, '0']
@@ -1956,12 +1800,10 @@ connections:
 - [epy_block_2, '0', blocks_vector_to_stream_2_0_0_1, '0']
 - [fft_vxx_0, '0', blocks_complex_to_float_0, '0']
 - [fft_vxx_0_0, '0', blocks_complex_to_float_0_0, '0']
-- [freq_xlating_fir_filter_xxx_0, '0', blocks_complex_to_mag_squared_0, '0']
 - [freq_xlating_fir_filter_xxx_0, '0', blocks_stream_to_vector_1, '0']
 - [freq_xlating_fir_filter_xxx_0_0, '0', blocks_stream_to_vector_1_0, '0']
-- [uhd_usrp_source_0, '0', blocks_correctiq_0, '0']
-- [uhd_usrp_source_0, '0', qtgui_sink_x_0, '0']
-- [uhd_usrp_source_0_0, '0', blocks_correctiq_0_0, '0']
+- [uhd_usrp_source_0, '0', freq_xlating_fir_filter_xxx_0, '0']
+- [uhd_usrp_source_0, '0', qtgui_freq_sink_x_0, '0']
 
 metadata:
   file_format: 1

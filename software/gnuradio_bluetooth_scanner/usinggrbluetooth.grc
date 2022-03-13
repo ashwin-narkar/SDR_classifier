@@ -8,7 +8,7 @@ options:
     description: ''
     gen_cmake: 'On'
     gen_linking: dynamic
-    generate_options: no_gui
+    generate_options: qt_gui
     hier_block_src_path: '.:'
     id: usinggrbluetooth
     max_nouts: '0'
@@ -56,6 +56,26 @@ blocks:
     coordinate: [184, 12]
     rotation: 0
     state: enabled
+- name: analog_pwr_squelch_xx_0
+  id: analog_pwr_squelch_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha: 1e-4
+    comment: ''
+    gate: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    ramp: '0'
+    threshold: '-60'
+    type: complex
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [456, 308.0]
+    rotation: 0
+    state: true
 - name: bluetooth_multi_sniffer_0
   id: bluetooth_multi_sniffer
   parameters:
@@ -64,13 +84,13 @@ blocks:
     center_freq: freq
     comment: ''
     sample_rate: samp_rate
-    squelch_threshold: '-70'
+    squelch_threshold: '-80'
     tun: 'False'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [912, 336.0]
+    coordinate: [688, 164.0]
     rotation: 0
     state: true
 - name: freq_xlating_fir_filter_xxx_0
@@ -238,7 +258,7 @@ blocks:
     dc_offs_enb9: '""'
     dev_addr: '""'
     dev_args: '""'
-    gain0: '0.7'
+    gain0: '0.75'
     gain1: '0'
     gain10: '0'
     gain11: '0'
@@ -369,7 +389,7 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
     nchan: '1'
-    norm_gain0: 'False'
+    norm_gain0: 'True'
     norm_gain1: 'False'
     norm_gain10: 'False'
     norm_gain11: 'False'
@@ -462,13 +482,13 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [176, 204.0]
+    coordinate: [176, 172.0]
     rotation: 0
     state: true
 
 connections:
-- [uhd_usrp_source_0, '0', bluetooth_multi_sniffer_0, '0']
-- [uhd_usrp_source_0, '0', freq_xlating_fir_filter_xxx_0, '0']
+- [analog_pwr_squelch_xx_0, '0', bluetooth_multi_sniffer_0, '0']
+- [uhd_usrp_source_0, '0', analog_pwr_squelch_xx_0, '0']
 
 metadata:
   file_format: 1
