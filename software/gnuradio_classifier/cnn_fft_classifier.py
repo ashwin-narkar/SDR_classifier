@@ -25,7 +25,6 @@ from PyQt5 import Qt
 from gnuradio import qtgui
 from gnuradio.filter import firdes
 import sip
-from gnuradio import analog
 from gnuradio import blocks
 from gnuradio import fft
 from gnuradio.fft import window
@@ -47,7 +46,7 @@ import threading
 
 from gnuradio import qtgui
 
-class onnx_modelclassifier(gr.top_block, Qt.QWidget):
+class cnn_fft_classifier(gr.top_block, Qt.QWidget):
 
     def __init__(self):
         gr.top_block.__init__(self, "Not titled yet")
@@ -70,7 +69,7 @@ class onnx_modelclassifier(gr.top_block, Qt.QWidget):
         self.top_grid_layout = Qt.QGridLayout()
         self.top_layout.addLayout(self.top_grid_layout)
 
-        self.settings = Qt.QSettings("GNU Radio", "onnx_modelclassifier")
+        self.settings = Qt.QSettings("GNU Radio", "cnn_fft_classifier")
 
         try:
             if StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
@@ -91,19 +90,6 @@ class onnx_modelclassifier(gr.top_block, Qt.QWidget):
         # Blocks
         ##################################################
         self.probe_avg_energy = blocks.probe_signal_f()
-        def _threshold_probe():
-            while True:
-
-                val = self.probe_avg_energy.level()
-                try:
-                    self.set_threshold(val)
-                except AttributeError:
-                    pass
-                time.sleep(1.0 / (samp_rate/2))
-        _threshold_thread = threading.Thread(target=_threshold_probe)
-        _threshold_thread.daemon = True
-        _threshold_thread.start()
-
         self._gain_range = Range(0, 1, 0.01, 0.75, 200)
         self._gain_win = RangeWidget(self._gain_range, self.set_gain, 'gain', "counter_slider", float)
         self.top_layout.addWidget(self._gain_win)
@@ -120,53 +106,19 @@ class onnx_modelclassifier(gr.top_block, Qt.QWidget):
         self.uhd_usrp_source_0.set_antenna('TX/RX', 0)
         self.uhd_usrp_source_0.set_samp_rate(samp_rate)
         self.uhd_usrp_source_0.set_time_unknown_pps(uhd.time_spec())
-        self.qtgui_time_sink_x_1 = qtgui.time_sink_f(
-            128, #size
-            samp_rate/2, #samp_rate
-            "Threshold", #name
-            1 #number of inputs
-        )
-        self.qtgui_time_sink_x_1.set_update_time(0.10)
-        self.qtgui_time_sink_x_1.set_y_axis(-1, 1)
+        def _threshold_probe():
+            while True:
 
-        self.qtgui_time_sink_x_1.set_y_label('Amplitude', "")
+                val = self.probe_avg_energy.level()
+                try:
+                    self.set_threshold(val)
+                except AttributeError:
+                    pass
+                time.sleep(1.0 / (samp_rate/4))
+        _threshold_thread = threading.Thread(target=_threshold_probe)
+        _threshold_thread.daemon = True
+        _threshold_thread.start()
 
-        self.qtgui_time_sink_x_1.enable_tags(True)
-        self.qtgui_time_sink_x_1.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
-        self.qtgui_time_sink_x_1.enable_autoscale(False)
-        self.qtgui_time_sink_x_1.enable_grid(False)
-        self.qtgui_time_sink_x_1.enable_axis_labels(True)
-        self.qtgui_time_sink_x_1.enable_control_panel(False)
-        self.qtgui_time_sink_x_1.enable_stem_plot(False)
-
-
-        labels = ['Signal 1', 'Signal 2', 'Signal 3', 'Signal 4', 'Signal 5',
-            'Signal 6', 'Signal 7', 'Signal 8', 'Signal 9', 'Signal 10']
-        widths = [1, 1, 1, 1, 1,
-            1, 1, 1, 1, 1]
-        colors = ['blue', 'red', 'green', 'black', 'cyan',
-            'magenta', 'yellow', 'dark red', 'dark green', 'dark blue']
-        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
-            1.0, 1.0, 1.0, 1.0, 1.0]
-        styles = [1, 1, 1, 1, 1,
-            1, 1, 1, 1, 1]
-        markers = [-1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1]
-
-
-        for i in range(1):
-            if len(labels[i]) == 0:
-                self.qtgui_time_sink_x_1.set_line_label(i, "Data {0}".format(i))
-            else:
-                self.qtgui_time_sink_x_1.set_line_label(i, labels[i])
-            self.qtgui_time_sink_x_1.set_line_width(i, widths[i])
-            self.qtgui_time_sink_x_1.set_line_color(i, colors[i])
-            self.qtgui_time_sink_x_1.set_line_style(i, styles[i])
-            self.qtgui_time_sink_x_1.set_line_marker(i, markers[i])
-            self.qtgui_time_sink_x_1.set_line_alpha(i, alphas[i])
-
-        self._qtgui_time_sink_x_1_win = sip.wrapinstance(self.qtgui_time_sink_x_1.pyqwidget(), Qt.QWidget)
-        self.top_layout.addWidget(self._qtgui_time_sink_x_1_win)
         self.qtgui_time_sink_x_0 = qtgui.time_sink_f(
             128, #size
             samp_rate/2, #samp_rate
@@ -174,7 +126,7 @@ class onnx_modelclassifier(gr.top_block, Qt.QWidget):
             1 #number of inputs
         )
         self.qtgui_time_sink_x_0.set_update_time(0.10)
-        self.qtgui_time_sink_x_0.set_y_axis(-100, 10)
+        self.qtgui_time_sink_x_0.set_y_axis(-65, -40)
 
         self.qtgui_time_sink_x_0.set_y_label('Amplitude', "")
 
@@ -246,23 +198,6 @@ class onnx_modelclassifier(gr.top_block, Qt.QWidget):
 
         self._qtgui_time_raster_sink_x_0_0_0_0_1_0_win = sip.wrapinstance(self.qtgui_time_raster_sink_x_0_0_0_0_1_0.pyqwidget(), Qt.QWidget)
         self.top_layout.addWidget(self._qtgui_time_raster_sink_x_0_0_0_0_1_0_win)
-        self.qtgui_sink_x_0 = qtgui.sink_c(
-            128, #fftsize
-            firdes.WIN_BLACKMAN_hARRIS, #wintype
-            0, #fc
-            samp_rate/2, #bw
-            "Post BandPass Signal", #name
-            True, #plotfreq
-            True, #plotwaterfall
-            True, #plottime
-            True #plotconst
-        )
-        self.qtgui_sink_x_0.set_update_time(1.0/10)
-        self._qtgui_sink_x_0_win = sip.wrapinstance(self.qtgui_sink_x_0.pyqwidget(), Qt.QWidget)
-
-        self.qtgui_sink_x_0.enable_rf_freq(False)
-
-        self.top_layout.addWidget(self._qtgui_sink_x_0_win)
         self.freq_xlating_fir_filter_xxx_0 = filter.freq_xlating_fir_filter_ccc(2, firdes.complex_band_pass(1, samp_rate, -samp_rate/(4), samp_rate/(4), 1e5), 2426.5e6, samp_rate)
         self.fft_vxx_0 = fft.fft_vcc(128, True, window.blackmanharris(128), False, 1)
         self.epy_block_0_0 = epy_block_0_0.blk(vlen=128)
@@ -273,51 +208,43 @@ class onnx_modelclassifier(gr.top_block, Qt.QWidget):
         self.blocks_vector_to_stream_1 = blocks.vector_to_stream(gr.sizeof_float*1, 128)
         self.blocks_vector_to_stream_0 = blocks.vector_to_stream(gr.sizeof_float*1, 128)
         self.blocks_threshold_ff_1 = blocks.threshold_ff(-60, -50, 0)
-        self.blocks_stream_to_vector_2 = blocks.stream_to_vector(gr.sizeof_float*1, 15)
         self.blocks_stream_to_vector_1 = blocks.stream_to_vector(gr.sizeof_gr_complex*1, 128)
         self.blocks_stream_to_vector_0 = blocks.stream_to_vector(gr.sizeof_float*1, 256)
         self.blocks_nlog10_ff_1 = blocks.nlog10_ff(20, 128, 0)
-        self.blocks_multiply_xx_0 = blocks.multiply_vff(15)
         self.blocks_moving_average_xx_1 = blocks.moving_average_ff(128, 1/128, 4000, 1)
         self.blocks_interleave_0 = blocks.interleave(gr.sizeof_float*1, 1)
         self.blocks_complex_to_mag_squared_1 = blocks.complex_to_mag_squared(128)
         self.blocks_complex_to_float_0 = blocks.complex_to_float(128)
-        self.analog_const_source_x_0 = analog.sig_source_f(0, analog.GR_CONST_WAVE, 0, 0, threshold)
 
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.analog_const_source_x_0, 0), (self.blocks_stream_to_vector_2, 0))
         self.connect((self.blocks_complex_to_float_0, 0), (self.epy_block_0, 0))
         self.connect((self.blocks_complex_to_float_0, 1), (self.epy_block_0_0, 0))
         self.connect((self.blocks_complex_to_mag_squared_1, 0), (self.blocks_nlog10_ff_1, 0))
         self.connect((self.blocks_interleave_0, 0), (self.blocks_stream_to_vector_0, 0))
         self.connect((self.blocks_moving_average_xx_1, 0), (self.blocks_threshold_ff_1, 0))
         self.connect((self.blocks_moving_average_xx_1, 0), (self.qtgui_time_sink_x_0, 0))
-        self.connect((self.blocks_multiply_xx_0, 0), (self.blocks_vector_to_stream_2_0_0_1_0, 0))
         self.connect((self.blocks_nlog10_ff_1, 0), (self.blocks_vector_to_stream_0, 0))
         self.connect((self.blocks_stream_to_vector_0, 0), (self.dnn_dnn_onnx_sync_0, 0))
         self.connect((self.blocks_stream_to_vector_1, 0), (self.fft_vxx_0, 0))
-        self.connect((self.blocks_stream_to_vector_2, 0), (self.blocks_multiply_xx_0, 1))
         self.connect((self.blocks_threshold_ff_1, 0), (self.probe_avg_energy, 0))
-        self.connect((self.blocks_threshold_ff_1, 0), (self.qtgui_time_sink_x_1, 0))
         self.connect((self.blocks_vector_to_stream_0, 0), (self.blocks_moving_average_xx_1, 0))
         self.connect((self.blocks_vector_to_stream_1, 0), (self.blocks_interleave_0, 0))
         self.connect((self.blocks_vector_to_stream_1_0, 0), (self.blocks_interleave_0, 1))
         self.connect((self.blocks_vector_to_stream_2_0_0_1_0, 0), (self.qtgui_time_raster_sink_x_0_0_0_0_1_0, 0))
-        self.connect((self.dnn_dnn_onnx_sync_0, 0), (self.blocks_multiply_xx_0, 0))
+        self.connect((self.dnn_dnn_onnx_sync_0, 0), (self.blocks_vector_to_stream_2_0_0_1_0, 0))
         self.connect((self.epy_block_0, 0), (self.blocks_vector_to_stream_1, 0))
         self.connect((self.epy_block_0_0, 0), (self.blocks_vector_to_stream_1_0, 0))
         self.connect((self.fft_vxx_0, 0), (self.blocks_complex_to_float_0, 0))
         self.connect((self.fft_vxx_0, 0), (self.blocks_complex_to_mag_squared_1, 0))
         self.connect((self.freq_xlating_fir_filter_xxx_0, 0), (self.blocks_stream_to_vector_1, 0))
-        self.connect((self.freq_xlating_fir_filter_xxx_0, 0), (self.qtgui_sink_x_0, 0))
         self.connect((self.uhd_usrp_source_0, 0), (self.freq_xlating_fir_filter_xxx_0, 0))
 
 
     def closeEvent(self, event):
-        self.settings = Qt.QSettings("GNU Radio", "onnx_modelclassifier")
+        self.settings = Qt.QSettings("GNU Radio", "cnn_fft_classifier")
         self.settings.setValue("geometry", self.saveGeometry())
         event.accept()
 
@@ -326,7 +253,7 @@ class onnx_modelclassifier(gr.top_block, Qt.QWidget):
 
     def set_threshold(self, threshold):
         self.threshold = threshold
-        self.analog_const_source_x_0.set_offset(self.threshold)
+        self.blocks_multiply_const_vxx_0.set_k((self.threshold,self.threshold,self.threshold,self.threshold,self.threshold,self.threshold,self.threshold,self.threshold,self.threshold,self.threshold,self.threshold,self.threshold,self.threshold,self.threshold,self.threshold))
 
     def get_samp_rate(self):
         return self.samp_rate
@@ -334,9 +261,7 @@ class onnx_modelclassifier(gr.top_block, Qt.QWidget):
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
         self.freq_xlating_fir_filter_xxx_0.set_taps(firdes.complex_band_pass(1, self.samp_rate, -self.samp_rate/(4), self.samp_rate/(4), 1e5))
-        self.qtgui_sink_x_0.set_frequency_range(0, self.samp_rate/2)
         self.qtgui_time_sink_x_0.set_samp_rate(self.samp_rate/2)
-        self.qtgui_time_sink_x_1.set_samp_rate(self.samp_rate/2)
         self.uhd_usrp_source_0.set_samp_rate(self.samp_rate)
 
     def get_gain(self):
@@ -350,7 +275,7 @@ class onnx_modelclassifier(gr.top_block, Qt.QWidget):
 
 
 
-def main(top_block_cls=onnx_modelclassifier, options=None):
+def main(top_block_cls=cnn_fft_classifier, options=None):
 
     if StrictVersion("4.5.0") <= StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
         style = gr.prefs().get_string('qtgui', 'style', 'raster')
