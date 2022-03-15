@@ -15,7 +15,8 @@ Running this code requires GNU Radio 3.8 and the following OOT modules to be set
 
 ## Code to Run
 
-
+- CNN Training Code: software/RF_CNN_Classifier.ipynb (based on the code from here: https://github.com/dl4amc/dl4wii/)
+- LSTM Training Code: software/RF_LSTM_Classifier.ipynb (based on the code from here: https://github.com/dl4amc/dl4wii/)
 - Classifier: software/gnuradio_classifier/classifier.grc
 - Wifi Scanner: (in the gr-ieee802-15 module), run examples/wifi_rx.grc
 - Bluetooth Scanner: software/gnuradio_bluetooth/usinggrbluetooth.grc
