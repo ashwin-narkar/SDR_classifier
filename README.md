@@ -5,17 +5,17 @@ In a typical 2.4 Ghz space, there are often many radio transmitters operating in
 
 ## Dependencies
 Running this code requires GNU Radio 3.8 and the following OOT modules to be set up:
-  -gr-ieee802-11
-  -gr-foo
-  -gr-bluetooth
-  -gr-dnn
-  -gr-ieee802-15-4
+- gr-ieee802-11
+- gr-foo
+- gr-bluetooth
+- gr-dnn
+- gr-ieee802-15-4
  
 
 
 ## Code to Run
 
 
--Classifier: software/gnuradio_classifier/classifier.grc
--Wifi Scanner: (in the gr-ieee802-15 module), run examples/wifi_rx.grc
--Bluetooth Scanner: software/gnuradio_bluetooth/usinggrbluetooth.grc
+- Classifier: software/gnuradio_classifier/classifier.grc
+- Wifi Scanner: (in the gr-ieee802-15 module), run examples/wifi_rx.grc
+- Bluetooth Scanner: software/gnuradio_bluetooth/usinggrbluetooth.grc
