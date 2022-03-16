@@ -10,7 +10,7 @@ options:
     gen_linking: dynamic
     generate_options: qt_gui
     hier_block_src_path: '.:'
-    id: lstm_modelclassifier
+    id: cnn_fft_classifier_noise_filter
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -27,7 +27,7 @@ options:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 8]
+    coordinate: [16, 4.0]
     rotation: 0
     state: enabled
 
@@ -50,22 +50,38 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [336, 36.0]
+    coordinate: [344, 4.0]
     rotation: 0
     state: true
 - name: samp_rate
   id: variable
   parameters:
     comment: ''
-    value: 20e6
+    value: 10e6
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [184, 12]
+    coordinate: [192, 4.0]
     rotation: 0
     state: enabled
-- name: blocks_complex_to_float_0
+- name: threshold
+  id: variable_function_probe
+  parameters:
+    block_id: probe_avg_energy_0
+    comment: ''
+    function_args: ''
+    function_name: level
+    poll_rate: samp_rate/4
+    value: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1192, 28.0]
+    rotation: 0
+    state: disabled
+- name: blocks_complex_to_float_0_0
   id: blocks_complex_to_float
   parameters:
     affinity: ''
@@ -78,10 +94,26 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [656, 128.0]
+    coordinate: [440, 176.0]
     rotation: 0
     state: enabled
-- name: blocks_interleave_0
+- name: blocks_complex_to_mag_squared_1_0
+  id: blocks_complex_to_mag_squared
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '128'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [448, 324.0]
+    rotation: 0
+    state: disabled
+- name: blocks_interleave_0_0
   id: blocks_interleave
   parameters:
     affinity: ''
@@ -97,10 +129,46 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1240, 128.0]
+    coordinate: [1200, 192.0]
     rotation: 0
     state: enabled
-- name: blocks_stream_to_vector_0
+- name: blocks_multiply_const_vxx_0_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: (threshold,threshold,threshold,threshold,threshold,threshold,threshold,threshold,threshold,threshold,threshold,threshold,threshold,threshold,threshold)
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '15'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [120, 852.0]
+    rotation: 0
+    state: disabled
+- name: blocks_nlog10_ff_1_0
+  id: blocks_nlog10_ff
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    k: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    n: '20'
+    vlen: '128'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [680, 308.0]
+    rotation: 0
+    state: disabled
+- name: blocks_stream_to_vector_0_0
   id: blocks_stream_to_vector
   parameters:
     affinity: ''
@@ -115,10 +183,10 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1200, 224.0]
-    rotation: 180
+    coordinate: [1352, 176.0]
+    rotation: 0
     state: enabled
-- name: blocks_stream_to_vector_1
+- name: blocks_stream_to_vector_1_0
   id: blocks_stream_to_vector
   parameters:
     affinity: ''
@@ -133,10 +201,10 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [656, 224.0]
-    rotation: 180
+    coordinate: [520, 600.0]
+    rotation: 0
     state: enabled
-- name: blocks_vector_to_stream_1
+- name: blocks_vector_to_stream_1_0_0
   id: blocks_vector_to_stream
   parameters:
     affinity: ''
@@ -151,10 +219,10 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1016, 120.0]
+    coordinate: [912, 248.0]
     rotation: 0
     state: enabled
-- name: blocks_vector_to_stream_1_0
+- name: blocks_vector_to_stream_1_1
   id: blocks_vector_to_stream
   parameters:
     affinity: ''
@@ -169,10 +237,10 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1016, 168.0]
+    coordinate: [912, 168.0]
     rotation: 0
     state: enabled
-- name: blocks_vector_to_stream_2_0_0_1_0
+- name: blocks_vector_to_stream_2_0_0_1_0_0
   id: blocks_vector_to_stream
   parameters:
     affinity: ''
@@ -187,10 +255,28 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1440, 304.0]
-    rotation: 0
+    coordinate: [232, 928.0]
+    rotation: 180
+    state: disabled
+- name: blocks_vector_to_stream_2_0_0_1_0_0_0
+  id: blocks_vector_to_stream
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: '15'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1200, 560.0]
+    rotation: 180
     state: enabled
-- name: dnn_dnn_onnx_sync_0
+- name: dnn_dnn_onnx_sync_0_0
   id: dnn_dnn_onnx_sync
   parameters:
     affinity: ''
@@ -200,54 +286,17 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
     onnx_batch_size: '1'
-    onnx_model_file: /home/ashwin/Documents/Capstone/data/lstm_iq.onnx
+    onnx_model_file: /home/ashwin/Documents/Capstone/data/fft_model.onnx
     onnx_runtime_device: CPU
     output_size: '15'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1200, 268.0]
-    rotation: 0
+    coordinate: [1336, 260.0]
+    rotation: 180
     state: enabled
-- name: epy_block_0
-  id: epy_block
-  parameters:
-    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
-      \ GRC will instantiate the first class it finds\nto get ports and parameters\
-      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
-      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
-      from gnuradio import gr\n\n\nclass blk(gr.sync_block):  # other base classes\
-      \ are basic_block, decim_block, interp_block\n    \"\"\"Embedded Python Block\
-      \ example - a simple multiply const\"\"\"\n\n    def __init__(self, vlen=128):\
-      \  # only default arguments here\n        \"\"\"arguments to this function show\
-      \ up as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n         \
-      \   self,\n            name='Normalizer',   # will show up in GRC\n        \
-      \    in_sig=[(np.float32,vlen)],\n            out_sig=[(np.float32,vlen)]\n\
-      \        )\n        # if an attribute with the same name as a parameter is found,\n\
-      \        # a callback is registered (properties work, too).\n        self.vlen\
-      \ = vlen\n\n    def work(self, input_items, output_items):\n        inp = np.asarray(input_items[0])\n\
-      \        \n        # print(len(input_items[0]))\n        # print(len(input_items[0][0]))\n\
-      \        # print(inp.shape)\n            # self.firstrun = False\n        mean\
-      \ = np.mean(inp)\n        std_dev = np.std(inp)\n\n        output_items[0][:]\
-      \ = input_items[0] - mean\n        output_items[0][:] = output_items[0] / std_dev\n\
-      \        return len(output_items[0])\n"
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    vlen: '128'
-  states:
-    _io_cache: ('Normalizer', 'blk', [('vlen', '128')], [('0', 'float', 128)], [('0',
-      'float', 128)], 'Embedded Python Block example - a simple multiply const', ['vlen'])
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [864, 116.0]
-    rotation: 0
-    state: enabled
-- name: epy_block_0_0
+- name: epy_block_0_0_0
   id: epy_block
   parameters:
     _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
@@ -281,59 +330,140 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [864, 164.0]
+    coordinate: [688, 212.0]
     rotation: 0
     state: enabled
-- name: freq_xlating_fir_filter_xxx_0
+- name: epy_block_0_1
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\n\n\nclass blk(gr.sync_block):  # other base classes\
+      \ are basic_block, decim_block, interp_block\n    \"\"\"Embedded Python Block\
+      \ example - a simple multiply const\"\"\"\n\n    def __init__(self, vlen=128):\
+      \  # only default arguments here\n        \"\"\"arguments to this function show\
+      \ up as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n         \
+      \   self,\n            name='Normalizer',   # will show up in GRC\n        \
+      \    in_sig=[(np.float32,vlen)],\n            out_sig=[(np.float32,vlen)]\n\
+      \        )\n        # if an attribute with the same name as a parameter is found,\n\
+      \        # a callback is registered (properties work, too).\n        self.vlen\
+      \ = vlen\n\n    def work(self, input_items, output_items):\n        inp = np.asarray(input_items[0])\n\
+      \        \n        # print(len(input_items[0]))\n        # print(len(input_items[0][0]))\n\
+      \        # print(inp.shape)\n            # self.firstrun = False\n        mean\
+      \ = np.mean(inp)\n        std_dev = np.std(inp)\n\n        output_items[0][:]\
+      \ = input_items[0] - mean\n        output_items[0][:] = output_items[0] / std_dev\n\
+      \        return len(output_items[0])\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '128'
+  states:
+    _io_cache: ('Normalizer', 'blk', [('vlen', '128')], [('0', 'float', 128)], [('0',
+      'float', 128)], 'Embedded Python Block example - a simple multiply const', ['vlen'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [688, 164.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_1
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\n\n\nclass blk(gr.sync_block):  # other base classes\
+      \ are basic_block, decim_block, interp_block\n    \"\"\"Embedded Python Block\
+      \ example - a simple multiply const\"\"\"\n\n    def __init__(self, vlen=128,\
+      \ threshold=-40.0):  # only default arguments here\n        \"\"\"arguments\
+      \ to this function show up as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n\
+      \            self,\n            name='Vector Average',   # will show up in GRC\n\
+      \            in_sig=[(np.float32,vlen)],\n            out_sig=[np.float32]\n\
+      \        )\n        # if an attribute with the same name as a parameter is found,\n\
+      \        # a callback is registered (properties work, too).\n        self.vlen\
+      \ = vlen\n        self.thresh = threshold\n\n    def work(self, input_items,\
+      \ output_items):\n        \"\"\"example: multiply with constant\"\"\"\n    \
+      \    inp = np.asarray(input_items[0])\n        if (np.mean(inp) >= self.thresh):\n\
+      \            output_items[0][:] = 1\n        else:\n            output_items[0][:]\
+      \ = 0\n        return len(output_items[0])\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    threshold: '-40.0'
+    vlen: '128'
+  states:
+    _io_cache: ('Vector Average', 'blk', [('vlen', '128'), ('threshold', '-40.0')],
+      [('0', 'float', 128)], [('0', 'float', 1)], 'Embedded Python Block example -
+      a simple multiply const', ['vlen'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [968, 316.0]
+    rotation: 0
+    state: disabled
+- name: fft_vxx_0_0
+  id: fft_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    fft_size: '128'
+    forward: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nthreads: '1'
+    shift: 'False'
+    type: complex
+    window: window.blackmanharris(128)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [432, 412.0]
+    rotation: 180
+    state: enabled
+- name: freq_xlating_fir_filter_xxx_0_0
   id: freq_xlating_fir_filter_xxx
   parameters:
     affinity: ''
     alias: ''
     center_freq: 2426.5e6
     comment: ''
-    decim: '2'
+    decim: '1'
     maxoutbuf: '0'
     minoutbuf: '0'
     samp_rate: samp_rate
-    taps: firdes.complex_band_pass(1, samp_rate, -samp_rate/(4), samp_rate/(4), 1e5)
+    taps: firdes.complex_band_pass(1, samp_rate, -5e6, 5e6, 1e5)
     type: ccc
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [504, 276.0]
+    coordinate: [152, 572.0]
     rotation: 0
-    state: true
-- name: qtgui_sink_x_0
-  id: qtgui_sink_x
+    state: enabled
+- name: probe_avg_energy_0
+  id: blocks_probe_signal_x
   parameters:
     affinity: ''
     alias: ''
-    bw: samp_rate/2
     comment: ''
-    fc: '0'
-    fftsize: '1024'
-    gui_hint: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    name: '""'
-    plotconst: 'True'
-    plotfreq: 'True'
-    plottime: 'True'
-    plotwaterfall: 'True'
-    rate: '10'
-    showports: 'False'
-    showrf: 'False'
-    type: complex
-    wintype: firdes.WIN_BLACKMAN_hARRIS
+    type: float
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [904, 396.0]
-    rotation: 0
-    state: true
-- name: qtgui_time_raster_sink_x_0_0_0_0_1_0
+    coordinate: [936, 516.0]
+    rotation: 180
+    state: disabled
+- name: qtgui_time_raster_sink_x_0_0_0_0_1_0_0
   id: qtgui_time_raster_sink_x
   parameters:
     affinity: ''
@@ -387,10 +517,140 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1264, 396.0]
-    rotation: 180
+    coordinate: [232, 980.0]
+    rotation: 0
+    state: disabled
+- name: qtgui_time_raster_sink_x_0_0_0_0_1_0_0_0
+  id: qtgui_time_raster_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    axislabels: 'True'
+    color1: '0'
+    color10: '0'
+    color2: '0'
+    color3: '0'
+    color4: '0'
+    color5: '0'
+    color6: '0'
+    color7: '0'
+    color8: '0'
+    color9: '0'
+    comment: ''
+    grid: 'False'
+    gui_hint: ''
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    mult: '[]'
+    name: '"Classification USRP 3186907"'
+    ncols: '15'
+    nconnections: '1'
+    nrows: '256'
+    offset: '[]'
+    samp_rate: 10e6
+    type: float
+    update_time: '0.10'
+    zmax: '1'
+    zmin: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1088, 620.0]
+    rotation: 0
     state: enabled
-- name: uhd_usrp_source_0
+- name: qtgui_vector_sink_f_0
+  id: qtgui_vector_sink_f
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    average: '1.0'
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: ''
+    grid: 'False'
+    gui_hint: ''
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    nconnections: '1'
+    ref_level: '0'
+    showports: 'False'
+    update_time: '0.10'
+    vlen: '128'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    x_axis_label: '"x-Axis"'
+    x_start: '0'
+    x_step: '1.0'
+    x_units: '""'
+    y_axis_label: '"y-Axis"'
+    y_units: '""'
+    ymax: '10'
+    ymin: '-140'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [944, 396.0]
+    rotation: 0
+    state: disabled
+- name: uhd_usrp_source_0_0
   id: uhd_usrp_source
   parameters:
     affinity: ''
@@ -759,25 +1019,33 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [136, 228.0]
-    rotation: 0
+    coordinate: [112, 244.0]
+    rotation: 180
     state: true
 
 connections:
-- [blocks_complex_to_float_0, '0', epy_block_0, '0']
-- [blocks_complex_to_float_0, '1', epy_block_0_0, '0']
-- [blocks_interleave_0, '0', blocks_stream_to_vector_0, '0']
-- [blocks_stream_to_vector_0, '0', dnn_dnn_onnx_sync_0, '0']
-- [blocks_stream_to_vector_1, '0', blocks_complex_to_float_0, '0']
-- [blocks_vector_to_stream_1, '0', blocks_interleave_0, '0']
-- [blocks_vector_to_stream_1_0, '0', blocks_interleave_0, '1']
-- [blocks_vector_to_stream_2_0_0_1_0, '0', qtgui_time_raster_sink_x_0_0_0_0_1_0, '0']
-- [dnn_dnn_onnx_sync_0, '0', blocks_vector_to_stream_2_0_0_1_0, '0']
-- [epy_block_0, '0', blocks_vector_to_stream_1, '0']
-- [epy_block_0_0, '0', blocks_vector_to_stream_1_0, '0']
-- [freq_xlating_fir_filter_xxx_0, '0', blocks_stream_to_vector_1, '0']
-- [freq_xlating_fir_filter_xxx_0, '0', qtgui_sink_x_0, '0']
-- [uhd_usrp_source_0, '0', freq_xlating_fir_filter_xxx_0, '0']
+- [blocks_complex_to_float_0_0, '0', epy_block_0_1, '0']
+- [blocks_complex_to_float_0_0, '1', epy_block_0_0_0, '0']
+- [blocks_complex_to_mag_squared_1_0, '0', blocks_nlog10_ff_1_0, '0']
+- [blocks_interleave_0_0, '0', blocks_stream_to_vector_0_0, '0']
+- [blocks_multiply_const_vxx_0_0, '0', blocks_vector_to_stream_2_0_0_1_0_0, '0']
+- [blocks_nlog10_ff_1_0, '0', epy_block_1, '0']
+- [blocks_nlog10_ff_1_0, '0', qtgui_vector_sink_f_0, '0']
+- [blocks_stream_to_vector_0_0, '0', dnn_dnn_onnx_sync_0_0, '0']
+- [blocks_stream_to_vector_1_0, '0', fft_vxx_0_0, '0']
+- [blocks_vector_to_stream_1_0_0, '0', blocks_interleave_0_0, '1']
+- [blocks_vector_to_stream_1_1, '0', blocks_interleave_0_0, '0']
+- [blocks_vector_to_stream_2_0_0_1_0_0_0, '0', qtgui_time_raster_sink_x_0_0_0_0_1_0_0_0,
+  '0']
+- [dnn_dnn_onnx_sync_0_0, '0', blocks_multiply_const_vxx_0_0, '0']
+- [dnn_dnn_onnx_sync_0_0, '0', blocks_vector_to_stream_2_0_0_1_0_0_0, '0']
+- [epy_block_0_0_0, '0', blocks_vector_to_stream_1_0_0, '0']
+- [epy_block_0_1, '0', blocks_vector_to_stream_1_1, '0']
+- [epy_block_1, '0', probe_avg_energy_0, '0']
+- [fft_vxx_0_0, '0', blocks_complex_to_float_0_0, '0']
+- [fft_vxx_0_0, '0', blocks_complex_to_mag_squared_1_0, '0']
+- [freq_xlating_fir_filter_xxx_0_0, '0', blocks_stream_to_vector_1_0, '0']
+- [uhd_usrp_source_0_0, '0', freq_xlating_fir_filter_xxx_0_0, '0']
 
 metadata:
   file_format: 1

@@ -25,7 +25,6 @@ from PyQt5 import Qt
 from gnuradio import qtgui
 from gnuradio.filter import firdes
 import sip
-from gnuradio import analog
 from gnuradio import blocks
 from gnuradio import filter
 from gnuradio import gr
@@ -41,8 +40,6 @@ import dnn
 import onnxruntime
 import epy_block_0
 import epy_block_0_0
-import epy_module_0  # embedded python module
-import threading
 
 from gnuradio import qtgui
 
@@ -82,27 +79,12 @@ class lstm_modelclassifier(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
-        self.threshold = threshold = 0
         self.samp_rate = samp_rate = 20e6
         self.gain = gain = 0.75
 
         ##################################################
         # Blocks
         ##################################################
-        self.avg_energy = blocks.probe_signal_f()
-        def _threshold_probe():
-            while True:
-
-                val = self.avg_energy.level()
-                try:
-                    self.set_threshold(val)
-                except AttributeError:
-                    pass
-                time.sleep(1.0 / (10))
-        _threshold_thread = threading.Thread(target=_threshold_probe)
-        _threshold_thread.daemon = True
-        _threshold_thread.start()
-
         self._gain_range = Range(0, 1, 0.01, 0.75, 200)
         self._gain_win = RangeWidget(self._gain_range, self.set_gain, 'gain', "counter_slider", float)
         self.top_layout.addWidget(self._gain_win)
@@ -168,81 +150,33 @@ class lstm_modelclassifier(gr.top_block, Qt.QWidget):
         self.qtgui_sink_x_0.enable_rf_freq(False)
 
         self.top_layout.addWidget(self._qtgui_sink_x_0_win)
-        self.qtgui_number_sink_1 = qtgui.number_sink(
-            gr.sizeof_float,
-            0,
-            qtgui.NUM_GRAPH_HORIZ,
-            1
-        )
-        self.qtgui_number_sink_1.set_update_time(0.10)
-        self.qtgui_number_sink_1.set_title("")
-
-        labels = ['', '', '', '', '',
-            '', '', '', '', '']
-        units = ['', '', '', '', '',
-            '', '', '', '', '']
-        colors = [("black", "black"), ("black", "black"), ("black", "black"), ("black", "black"), ("black", "black"),
-            ("black", "black"), ("black", "black"), ("black", "black"), ("black", "black"), ("black", "black")]
-        factor = [1, 1, 1, 1, 1,
-            1, 1, 1, 1, 1]
-
-        for i in range(1):
-            self.qtgui_number_sink_1.set_min(i, -1)
-            self.qtgui_number_sink_1.set_max(i, 1)
-            self.qtgui_number_sink_1.set_color(i, colors[i][0], colors[i][1])
-            if len(labels[i]) == 0:
-                self.qtgui_number_sink_1.set_label(i, "Data {0}".format(i))
-            else:
-                self.qtgui_number_sink_1.set_label(i, labels[i])
-            self.qtgui_number_sink_1.set_unit(i, units[i])
-            self.qtgui_number_sink_1.set_factor(i, factor[i])
-
-        self.qtgui_number_sink_1.enable_autoscale(False)
-        self._qtgui_number_sink_1_win = sip.wrapinstance(self.qtgui_number_sink_1.pyqwidget(), Qt.QWidget)
-        self.top_layout.addWidget(self._qtgui_number_sink_1_win)
-        self.freq_xlating_fir_filter_xxx_0 = filter.freq_xlating_fir_filter_ccc(2, firdes.complex_band_pass(1, samp_rate, -samp_rate/(2), samp_rate/(2), 1e5), 2426.5e6, samp_rate)
+        self.freq_xlating_fir_filter_xxx_0 = filter.freq_xlating_fir_filter_ccc(2, firdes.complex_band_pass(1, samp_rate, -samp_rate/(4), samp_rate/(4), 1e5), 2426.5e6, samp_rate)
         self.epy_block_0_0 = epy_block_0_0.blk(vlen=128)
         self.epy_block_0 = epy_block_0.blk(vlen=128)
         self.dnn_dnn_onnx_sync_0 = dnn.dnn_onnx_sync('/home/ashwin/Documents/Capstone/data/lstm_iq.onnx', 1, 'CPU')
         self.blocks_vector_to_stream_2_0_0_1_0 = blocks.vector_to_stream(gr.sizeof_float*1, 15)
         self.blocks_vector_to_stream_1_0 = blocks.vector_to_stream(gr.sizeof_float*1, 128)
         self.blocks_vector_to_stream_1 = blocks.vector_to_stream(gr.sizeof_float*1, 128)
-        self.blocks_threshold_ff_0 = blocks.threshold_ff(-5, -4, 0)
-        self.blocks_stream_to_vector_2 = blocks.stream_to_vector(gr.sizeof_float*1, 15)
         self.blocks_stream_to_vector_1 = blocks.stream_to_vector(gr.sizeof_gr_complex*1, 128)
         self.blocks_stream_to_vector_0 = blocks.stream_to_vector(gr.sizeof_float*1, 256)
-        self.blocks_nlog10_ff_0 = blocks.nlog10_ff(1, 1, 0)
-        self.blocks_multiply_xx_0 = blocks.multiply_vff(15)
-        self.blocks_moving_average_xx_0 = blocks.moving_average_cc(20, 1/20, 4000, 1)
         self.blocks_interleave_0 = blocks.interleave(gr.sizeof_float*1, 1)
-        self.blocks_complex_to_mag_squared_0 = blocks.complex_to_mag_squared(1)
         self.blocks_complex_to_float_0 = blocks.complex_to_float(128)
-        self.analog_const_source_x_0 = analog.sig_source_f(0, analog.GR_CONST_WAVE, 0, 0, threshold)
 
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.analog_const_source_x_0, 0), (self.blocks_stream_to_vector_2, 0))
         self.connect((self.blocks_complex_to_float_0, 0), (self.epy_block_0, 0))
         self.connect((self.blocks_complex_to_float_0, 1), (self.epy_block_0_0, 0))
-        self.connect((self.blocks_complex_to_mag_squared_0, 0), (self.blocks_nlog10_ff_0, 0))
         self.connect((self.blocks_interleave_0, 0), (self.blocks_stream_to_vector_0, 0))
-        self.connect((self.blocks_moving_average_xx_0, 0), (self.blocks_complex_to_mag_squared_0, 0))
-        self.connect((self.blocks_multiply_xx_0, 0), (self.blocks_vector_to_stream_2_0_0_1_0, 0))
-        self.connect((self.blocks_nlog10_ff_0, 0), (self.blocks_threshold_ff_0, 0))
-        self.connect((self.blocks_nlog10_ff_0, 0), (self.qtgui_number_sink_1, 0))
         self.connect((self.blocks_stream_to_vector_0, 0), (self.dnn_dnn_onnx_sync_0, 0))
         self.connect((self.blocks_stream_to_vector_1, 0), (self.blocks_complex_to_float_0, 0))
-        self.connect((self.blocks_stream_to_vector_2, 0), (self.blocks_multiply_xx_0, 1))
-        self.connect((self.blocks_threshold_ff_0, 0), (self.avg_energy, 0))
         self.connect((self.blocks_vector_to_stream_1, 0), (self.blocks_interleave_0, 0))
         self.connect((self.blocks_vector_to_stream_1_0, 0), (self.blocks_interleave_0, 1))
         self.connect((self.blocks_vector_to_stream_2_0_0_1_0, 0), (self.qtgui_time_raster_sink_x_0_0_0_0_1_0, 0))
-        self.connect((self.dnn_dnn_onnx_sync_0, 0), (self.blocks_multiply_xx_0, 0))
+        self.connect((self.dnn_dnn_onnx_sync_0, 0), (self.blocks_vector_to_stream_2_0_0_1_0, 0))
         self.connect((self.epy_block_0, 0), (self.blocks_vector_to_stream_1, 0))
         self.connect((self.epy_block_0_0, 0), (self.blocks_vector_to_stream_1_0, 0))
-        self.connect((self.freq_xlating_fir_filter_xxx_0, 0), (self.blocks_moving_average_xx_0, 0))
         self.connect((self.freq_xlating_fir_filter_xxx_0, 0), (self.blocks_stream_to_vector_1, 0))
         self.connect((self.freq_xlating_fir_filter_xxx_0, 0), (self.qtgui_sink_x_0, 0))
         self.connect((self.uhd_usrp_source_0, 0), (self.freq_xlating_fir_filter_xxx_0, 0))
@@ -253,19 +187,12 @@ class lstm_modelclassifier(gr.top_block, Qt.QWidget):
         self.settings.setValue("geometry", self.saveGeometry())
         event.accept()
 
-    def get_threshold(self):
-        return self.threshold
-
-    def set_threshold(self, threshold):
-        self.threshold = threshold
-        self.analog_const_source_x_0.set_offset(self.threshold)
-
     def get_samp_rate(self):
         return self.samp_rate
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.freq_xlating_fir_filter_xxx_0.set_taps(firdes.complex_band_pass(1, self.samp_rate, -self.samp_rate/(2), self.samp_rate/(2), 1e5))
+        self.freq_xlating_fir_filter_xxx_0.set_taps(firdes.complex_band_pass(1, self.samp_rate, -self.samp_rate/(4), self.samp_rate/(4), 1e5))
         self.qtgui_sink_x_0.set_frequency_range(0, self.samp_rate/2)
         self.uhd_usrp_source_0.set_samp_rate(self.samp_rate)
 

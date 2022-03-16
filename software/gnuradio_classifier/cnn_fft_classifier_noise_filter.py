@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: GPL-3.0
 #
 # GNU Radio Python Flow Graph
-# Title: Classifier
+# Title: Not titled yet
 # Author: ashwin
 # GNU Radio version: 3.8.5.0
 
@@ -45,12 +45,12 @@ import epy_block_0_1
 
 from gnuradio import qtgui
 
-class cnn_fft_classifier(gr.top_block, Qt.QWidget):
+class cnn_fft_classifier_noise_filter(gr.top_block, Qt.QWidget):
 
     def __init__(self):
-        gr.top_block.__init__(self, "Classifier")
+        gr.top_block.__init__(self, "Not titled yet")
         Qt.QWidget.__init__(self)
-        self.setWindowTitle("Classifier")
+        self.setWindowTitle("Not titled yet")
         qtgui.util.check_set_qss()
         try:
             self.setWindowIcon(Qt.QIcon.fromTheme('gnuradio-grc'))
@@ -68,7 +68,7 @@ class cnn_fft_classifier(gr.top_block, Qt.QWidget):
         self.top_grid_layout = Qt.QGridLayout()
         self.top_layout.addLayout(self.top_grid_layout)
 
-        self.settings = Qt.QSettings("GNU Radio", "cnn_fft_classifier")
+        self.settings = Qt.QSettings("GNU Radio", "cnn_fft_classifier_noise_filter")
 
         try:
             if StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
@@ -81,7 +81,7 @@ class cnn_fft_classifier(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
-        self.samp_rate = samp_rate = 20e6
+        self.samp_rate = samp_rate = 10e6
         self.gain = gain = 0.75
 
         ##################################################
@@ -103,7 +103,7 @@ class cnn_fft_classifier(gr.top_block, Qt.QWidget):
         self.uhd_usrp_source_0_0.set_antenna('TX/RX', 0)
         self.uhd_usrp_source_0_0.set_samp_rate(samp_rate)
         self.uhd_usrp_source_0_0.set_time_unknown_pps(uhd.time_spec())
-        self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0 = qtgui.time_raster_sink_f(
+        self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0_0 = qtgui.time_raster_sink_f(
             10e6,
             256,
             15,
@@ -113,10 +113,10 @@ class cnn_fft_classifier(gr.top_block, Qt.QWidget):
             1
         )
 
-        self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0.set_update_time(0.10)
-        self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0.set_intensity_range(0, 1)
-        self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0.enable_grid(False)
-        self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0.enable_axis_labels(True)
+        self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0_0.set_update_time(0.10)
+        self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0_0.set_intensity_range(0, 1)
+        self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0_0.enable_grid(False)
+        self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0_0.enable_axis_labels(True)
 
         labels = ['', '', '', '', '',
             '', '', '', '', '']
@@ -127,20 +127,20 @@ class cnn_fft_classifier(gr.top_block, Qt.QWidget):
 
         for i in range(1):
             if len(labels[i]) == 0:
-                self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0.set_line_label(i, "Data {0}".format(i))
+                self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0_0.set_line_label(i, "Data {0}".format(i))
             else:
-                self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0.set_line_label(i, labels[i])
-            self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0.set_color_map(i, colors[i])
-            self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0.set_line_alpha(i, alphas[i])
+                self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0_0.set_line_label(i, labels[i])
+            self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0_0.set_color_map(i, colors[i])
+            self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0_0.set_line_alpha(i, alphas[i])
 
-        self._qtgui_time_raster_sink_x_0_0_0_0_1_0_0_win = sip.wrapinstance(self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0.pyqwidget(), Qt.QWidget)
-        self.top_layout.addWidget(self._qtgui_time_raster_sink_x_0_0_0_0_1_0_0_win)
-        self.freq_xlating_fir_filter_xxx_0_0 = filter.freq_xlating_fir_filter_ccc(2, firdes.complex_band_pass(1, samp_rate, -samp_rate/(4), samp_rate/(4), 1e5), 2426.5e6, samp_rate)
+        self._qtgui_time_raster_sink_x_0_0_0_0_1_0_0_0_win = sip.wrapinstance(self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0_0.pyqwidget(), Qt.QWidget)
+        self.top_layout.addWidget(self._qtgui_time_raster_sink_x_0_0_0_0_1_0_0_0_win)
+        self.freq_xlating_fir_filter_xxx_0_0 = filter.freq_xlating_fir_filter_ccc(1, firdes.complex_band_pass(1, samp_rate, -5e6, 5e6, 1e5), 2426.5e6, samp_rate)
         self.fft_vxx_0_0 = fft.fft_vcc(128, True, window.blackmanharris(128), False, 1)
         self.epy_block_0_1 = epy_block_0_1.blk(vlen=128)
         self.epy_block_0_0_0 = epy_block_0_0_0.blk(vlen=128)
-        self.dnn_dnn_onnx_sync_0_0 = dnn.dnn_onnx_sync('/home/ashwin/Documents/Capstone/data/sigmoid_fft_model.onnx', 1, 'CPU')
-        self.blocks_vector_to_stream_2_0_0_1_0_0 = blocks.vector_to_stream(gr.sizeof_float*1, 15)
+        self.dnn_dnn_onnx_sync_0_0 = dnn.dnn_onnx_sync('/home/ashwin/Documents/Capstone/data/fft_model.onnx', 1, 'CPU')
+        self.blocks_vector_to_stream_2_0_0_1_0_0_0 = blocks.vector_to_stream(gr.sizeof_float*1, 15)
         self.blocks_vector_to_stream_1_1 = blocks.vector_to_stream(gr.sizeof_float*1, 128)
         self.blocks_vector_to_stream_1_0_0 = blocks.vector_to_stream(gr.sizeof_float*1, 128)
         self.blocks_stream_to_vector_1_0 = blocks.stream_to_vector(gr.sizeof_gr_complex*1, 128)
@@ -159,8 +159,8 @@ class cnn_fft_classifier(gr.top_block, Qt.QWidget):
         self.connect((self.blocks_stream_to_vector_1_0, 0), (self.fft_vxx_0_0, 0))
         self.connect((self.blocks_vector_to_stream_1_0_0, 0), (self.blocks_interleave_0_0, 1))
         self.connect((self.blocks_vector_to_stream_1_1, 0), (self.blocks_interleave_0_0, 0))
-        self.connect((self.blocks_vector_to_stream_2_0_0_1_0_0, 0), (self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0, 0))
-        self.connect((self.dnn_dnn_onnx_sync_0_0, 0), (self.blocks_vector_to_stream_2_0_0_1_0_0, 0))
+        self.connect((self.blocks_vector_to_stream_2_0_0_1_0_0_0, 0), (self.qtgui_time_raster_sink_x_0_0_0_0_1_0_0_0, 0))
+        self.connect((self.dnn_dnn_onnx_sync_0_0, 0), (self.blocks_vector_to_stream_2_0_0_1_0_0_0, 0))
         self.connect((self.epy_block_0_0_0, 0), (self.blocks_vector_to_stream_1_0_0, 0))
         self.connect((self.epy_block_0_1, 0), (self.blocks_vector_to_stream_1_1, 0))
         self.connect((self.fft_vxx_0_0, 0), (self.blocks_complex_to_float_0_0, 0))
@@ -169,7 +169,7 @@ class cnn_fft_classifier(gr.top_block, Qt.QWidget):
 
 
     def closeEvent(self, event):
-        self.settings = Qt.QSettings("GNU Radio", "cnn_fft_classifier")
+        self.settings = Qt.QSettings("GNU Radio", "cnn_fft_classifier_noise_filter")
         self.settings.setValue("geometry", self.saveGeometry())
         event.accept()
 
@@ -178,7 +178,7 @@ class cnn_fft_classifier(gr.top_block, Qt.QWidget):
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.freq_xlating_fir_filter_xxx_0_0.set_taps(firdes.complex_band_pass(1, self.samp_rate, -self.samp_rate/(4), self.samp_rate/(4), 1e5))
+        self.freq_xlating_fir_filter_xxx_0_0.set_taps(firdes.complex_band_pass(1, self.samp_rate, -5e6, 5e6, 1e5))
         self.uhd_usrp_source_0_0.set_samp_rate(self.samp_rate)
 
     def get_gain(self):
@@ -192,7 +192,7 @@ class cnn_fft_classifier(gr.top_block, Qt.QWidget):
 
 
 
-def main(top_block_cls=cnn_fft_classifier, options=None):
+def main(top_block_cls=cnn_fft_classifier_noise_filter, options=None):
 
     if StrictVersion("4.5.0") <= StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
         style = gr.prefs().get_string('qtgui', 'style', 'raster')
